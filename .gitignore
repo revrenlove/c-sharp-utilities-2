@@ -1,0 +1,7 @@
+out
+out.backup
+node_modules
+.vscode-test/
+*.vsix
+bin
+obj

@@ -1,0 +1,87 @@
+name: Lint
+
+on:
+  pull_request:
+
+jobs:
+
+  check-spelling:
+    
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: npm
+
+      - run: npm ci
+      - run: npm run spell-check
+
+  check-lint:
+
+    outputs:
+      status: ${{steps.run-lint.conclusion }}
+
+    runs-on: ubuntu-latest
+    
+    continue-on-error: true
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: npm
+
+      - run: npm ci
+
+      - id: run-lint
+        run: npm run lint
+
+  lint-fix:
+    
+    needs: check-lint
+    if: needs.check-lint.outputs.status != 'success'
+    
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: npm
+      
+      - run: npm ci
+      - run: npm run lint -- --fix
+
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PRIVATE_KEY_PASSKEY }}
+          git_user_signingkey: true
+          git_commit_gpgsign: true
+
+      - name: Add/Commit/Push
+        run: |
+          git add -A
+          git commit --no-verify -S -m "Linting"
+          git push

@@ -1,0 +1,93 @@
+{
+    "name": "c-sharp-utilities2",
+    "displayName": "C# Utilities",
+    "description": "",
+    "version": "2.0.0",
+    "engines": {
+        "vscode": "^1.89.0"
+    },
+    "publisher": "revrenlove",
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onStartupFinished"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "commands":[
+            {
+                "command": "c-sharp-utilities2.example",
+                "title": "Example Command"
+            }
+        ],
+        "configuration": {
+            "title": "C# Utilities",
+            "properties": {
+                "c-sharp-utilities2.newItemTemplate.fileScopedNamespace": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Use File Scoped Namespaces for new C# items.",
+                    "order": 0
+                },
+                "c-sharp-utilities2.newItemTemplate.includeUsingStatements": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Include specified using statements for new C# items.",
+                    "order": 1
+                },
+                "c-sharp-utilities2.newItemTemplate.namespacesToInclude": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "default": [
+                        "System",
+                        "System.Collections.Generic",
+                        "System.Text"
+                    ],
+                    "description": "Namespaces to include in a new C# item - this will only be used if the \"Include Using Statements\" setting is checked.",
+                    "order": 2
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run build:prod",
+        "build": "esrun ./scripts/build.ts",
+        "build:prod": "esrun ./scripts/buildProd.ts",
+        "pretest": "npm run build && esrun ./scripts/initializeTests.ts",
+        "lint": "eslint .",
+        "spell-check": "cspell .",
+        "prepare": "husky",
+        "test": "vscode-test",
+        "deploy": "vsce publish",
+        "package": "vsce package",
+        "checkout": "npm i && npm prune && npm run build && npm test"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.7.0",
+        "@stylistic/eslint-plugin": "^2.3.0",
+        "@ts-type/package-dts": "^2.0.8",
+        "@types/eslint__js": "^8.42.3",
+        "@types/mocha": "^10.0.6",
+        "@types/node": "^18.19.33",
+        "@types/vscode": "^1.89.0",
+        "@types/xml2js": "^0.4.14",
+        "@vscode/test-cli": "^0.0.8",
+        "@vscode/test-electron": "^2.3.9",
+        "@vscode/vsce": "^2.26.1",
+        "cspell": "^8.14.4",
+        "esbuild": "^0.20.2",
+        "eslint": "^8.57.0",
+        "esrun": "^3.2.26",
+        "husky": "^9.1.4",
+        "lint-staged": "^15.2.9",
+        "typescript": "^5.5.3",
+        "typescript-eslint": "^7.16.1"
+    },
+    "dependencies": {
+        "@revrenlove/easy-vscode-commands": "^1.0.3",
+        "xml2js": "^0.6.2"
+    }
+}

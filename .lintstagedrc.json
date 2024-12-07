@@ -1,0 +1,5 @@
+{
+    "**/*.{mjs,ts}": "npm run lint -- --fix",
+    "**/*": "npm run spell-check"
+
+}
