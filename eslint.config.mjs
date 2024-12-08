@@ -59,6 +59,12 @@ export default tseslint.config(
                     "asyncArrow": "always",
                 },
             ],
+            "@typescript-eslint/no-empty-function": [
+                "error",
+                {
+                    "allow": ["private-constructors"],
+                },
+            ],
         },
     },
     {
