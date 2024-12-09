@@ -56,11 +56,10 @@
         "vscode:prepublish": "npm run build:prod",
         "build": "esrun ./scripts/build.ts",
         "build:prod": "esrun ./scripts/buildProd.ts",
-        "pretest": "npm run build && esrun ./scripts/initializeTests.ts",
         "lint": "eslint .",
         "spell-check": "cspell .",
         "prepare": "husky",
-        "test": "vscode-test",
+        "test": "npm run build && esrun ./scripts/initializeTests.ts && vscode-test",
         "deploy": "vsce publish",
         "package": "vsce package",
         "checkout": "npm i && npm prune && npm run build && npm test"
