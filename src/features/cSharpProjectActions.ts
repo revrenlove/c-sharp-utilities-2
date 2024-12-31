@@ -1,7 +1,6 @@
 import * as vscode from "vscode";
 import { saveAllOpenFiles } from "../utilities/fileOperations";
 import * as dotnetShellOperations from "../utilities/dotnetShellOperations";
-// import { TerminalError } from "../errors/terminal.error";
 
 async function buildCSharpProject(csprojUri: vscode.Uri): Promise<void> {
 
