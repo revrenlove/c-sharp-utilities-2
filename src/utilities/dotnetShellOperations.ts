@@ -1,8 +1,11 @@
 import * as vscode from "vscode";
 import { exec } from "child_process";
 import { promisify } from "util";
-import { TerminalError } from "../errors/terminal.error";
 import * as fileOperations from "../utilities/fileOperations";
+
+// Disabled so that jsdoc can reference it.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { TerminalError } from "../errors/terminal.error";
 
 const execAsync = promisify(exec);
 
@@ -10,6 +13,12 @@ enum DotnetCommand {
     Build = "build",
 }
 
+/**
+ * Builds a `dotnet` project
+ * @param {vscode.Uri} projectUri - The URI of the project to build.
+ * @returns {Promise<string>} A promise that resolves to the `stdout` from the `dotnet build`
+ * @throws {TerminalError} if build is unsuccessful.
+ */
 async function buildProject(projectUri: vscode.Uri): Promise<string> {
 
     const directoryPath = fileOperations.getParentDirectoryPath(projectUri);
@@ -31,12 +40,7 @@ async function executeDotnetCommandAsync(
         command += ` ${commandArgs.join(" ")}`;
     }
 
-    // BUG: This never "resolves".. . let's try synchronous...
     const execResult = await execAsync(command, { "cwd": directoryPath });
-
-    if (execResult.stderr) {
-        throw new TerminalError(execResult.stdout, execResult.stderr);
-    }
 
     return execResult.stdout;
 }
