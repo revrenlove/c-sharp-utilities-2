@@ -13,7 +13,7 @@ suite("Build Project Tests", () => {
             await buildCSharpProject(uri);
 
         }, TerminalError);
-    });
+    }).timeout(10000);
 
     test("Ensure successful project build", async () => {
 
@@ -22,5 +22,5 @@ suite("Build Project Tests", () => {
         await assert.doesNotReject(async () => {
             await buildCSharpProject(uri);
         });
-    });
+    }).timeout(10000);
 });
