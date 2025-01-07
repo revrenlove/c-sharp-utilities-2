@@ -9,8 +9,6 @@ suite("Build Project Tests", () => {
 
         const uri = vscode.Uri.file(`${__dirname}/../assets/projects/ProjectThatWillNotBuild/ProjectThatWillNotBuild.csproj`);
 
-        console.log(__dirname);
-
         await assert.rejects(async () => {
             await buildCSharpProject(uri);
 
@@ -21,10 +19,15 @@ suite("Build Project Tests", () => {
 
         const uri = vscode.Uri.file(`${__dirname}/../assets/projects/ProjectThatWillBuild/ProjectThatWillBuild.csproj`);
 
-        console.log(__dirname);
-
+        // TODO: JE - Get rid of the try/catch...
         await assert.doesNotReject(async () => {
-            await buildCSharpProject(uri);
+            try {
+                await buildCSharpProject(uri);
+            }
+            catch (e: unknown) {
+                console.log(JSON.stringify(e));
+                throw e;
+            }
         });
     }).timeout(10000);
 });
