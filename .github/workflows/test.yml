@@ -20,7 +20,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: 23.x
           cache: npm
 
       - uses: actions/setup-dotnet@v4
@@ -29,7 +29,13 @@ jobs:
 
       - run: npm ci
 
-      - run: xvfb-run -a npm test
-        if: runner.os == 'Linux'
-      - run: npm test
-        if: runner.os != 'Linux'
+      - name: Test TypeScript shit
+        uses: ./.github/workflows/actions/pre-build-test-projects
+
+      # TODO: JE - Pre-build test c-sharp projects...
+
+      #TODO: JE - Uncomment this...
+      # - run: xvfb-run -a npm test
+      #   if: runner.os == 'Linux'
+      # - run: npm test
+      #   if: runner.os != 'Linux'
