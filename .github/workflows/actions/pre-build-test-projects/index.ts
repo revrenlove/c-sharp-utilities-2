@@ -1,1 +1,2 @@
-console.log("Running my custom typescript action...");
+console.log(__dirname);
+
