@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import { exec } from "child_process";
 import { promisify } from "util";
 import * as fileOperations from "../utilities/fileOperations";
+import { ExecError } from "../errors/exec.error";
 
 // Disabled so that jsdoc can reference it.
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -40,9 +41,15 @@ async function executeDotnetCommandAsync(
         command += ` ${commandArgs.join(" ")}`;
     }
 
-    const execResult = await execAsync(command, { "cwd": directoryPath });
+    try {
+        const execResult = await execAsync(command, { "cwd": directoryPath });
 
-    return execResult.stdout;
+        return execResult.stdout;
+    }
+    catch (e: unknown) {
+
+        throw new TerminalError(e as ExecError);
+    }
 }
 
 export { buildProject };

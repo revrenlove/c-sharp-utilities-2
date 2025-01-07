@@ -1,3 +1,6 @@
+// TODO: JE - Put a README on this! Not sure what exactly my thinking was as far
+//          as how this should be implemented in the future with new configuration values...
+
 import * as assert from "assert";
 import ConfigurationManager from "../configurationManager";
 

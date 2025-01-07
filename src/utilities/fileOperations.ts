@@ -7,17 +7,20 @@ function getParentDirectoryPath(uri: vscode.Uri): string {
 }
 
 async function saveAllOpenFiles(): Promise<void> {
-    const savePromises =
-        vscode
-            .window
-            .visibleTextEditors
-            .filter(e => e.document.isDirty)
-            .map(e => e.document.save());
 
-    const saveResults = await Promise.all(savePromises);
+    const dirtyEditors =
+            vscode
+                .window
+                .visibleTextEditors
+                .filter(e => e.document.isDirty);
 
-    if (saveResults.some(s => !s)) {
-        throw new CSharpUtilitiesExtensionError("Unable to save some files...");
+    for (const dirtyEditor of dirtyEditors) {
+
+        const isSaveSuccessful = await dirtyEditor.document.save();
+
+        if (!isSaveSuccessful) {
+            throw new CSharpUtilitiesExtensionError(`Unable to save file: ${dirtyEditor.document.fileName}`);
+        }
     }
 }
 

@@ -1,20 +1,24 @@
-import { ExecException } from "child_process";
 import { CSharpUtilitiesExtensionError } from "./cSharpUtilitiesExtension.error";
+import { ExecError } from "./exec.error";
 
-export class TerminalError extends CSharpUtilitiesExtensionError implements ExecException {
+export class TerminalError extends CSharpUtilitiesExtensionError implements ExecError {
 
-    // TODO: JE - Figure out about this constructor...
-    constructor(stdout: string, stderr: string) {
+    public constructor(e: ExecError) {
 
-        super(stderr);
+        super(e.message);
 
-        this.stdout = stdout;
-        this.stderr = stderr;
+        this.stdout = e.stdout;
+        this.stderr = e.stderr;
+
+        this.cmd = e.cmd;
+        this.killed = e.killed;
+        this.code = e.code;
+        this.signal = e.signal;
     }
 
-    public stdout: string;
+    public readonly stdout: string;
 
-    public stderr: string;
+    public readonly stderr: string;
 
     public cmd?: string | undefined;
 
