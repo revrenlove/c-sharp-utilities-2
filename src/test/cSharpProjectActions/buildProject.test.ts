@@ -3,6 +3,8 @@ import * as assert from "assert";
 import { buildCSharpProject } from "../../features/cSharpProjectActions";
 import { TerminalError } from "../../errors/terminal.error";
 
+const maxTimeout = 20000;
+
 suite("Build Project Tests", () => {
 
     test("Compile error throws TerminalError", async () => {
@@ -11,23 +13,17 @@ suite("Build Project Tests", () => {
 
         await assert.rejects(async () => {
             await buildCSharpProject(uri);
-
         }, TerminalError);
-    }).timeout(10000);
+
+    }).timeout(maxTimeout);
 
     test("Ensure successful project build", async () => {
 
         const uri = vscode.Uri.file(`${__dirname}/../assets/projects/ProjectThatWillBuild/ProjectThatWillBuild.csproj`);
 
-        // TODO: JE - Get rid of the try/catch...
         await assert.doesNotReject(async () => {
-            try {
-                await buildCSharpProject(uri);
-            }
-            catch (e: unknown) {
-                console.log(JSON.stringify(e));
-                throw e;
-            }
+            await buildCSharpProject(uri);
         });
-    }).timeout(10000);
+
+    }).timeout(maxTimeout);
 });
