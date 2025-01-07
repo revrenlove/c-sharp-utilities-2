@@ -9,6 +9,8 @@ suite("Build Project Tests", () => {
 
         const uri = vscode.Uri.file(`${__dirname}/../assets/projects/ProjectThatWillNotBuild/ProjectThatWillNotBuild.csproj`);
 
+        console.log(__dirname);
+
         await assert.rejects(async () => {
             await buildCSharpProject(uri);
 
@@ -18,6 +20,8 @@ suite("Build Project Tests", () => {
     test("Ensure successful project build", async () => {
 
         const uri = vscode.Uri.file(`${__dirname}/../assets/projects/ProjectThatWillBuild/ProjectThatWillBuild.csproj`);
+
+        console.log(__dirname);
 
         await assert.doesNotReject(async () => {
             await buildCSharpProject(uri);
