@@ -4,6 +4,7 @@
         "target": "ESNext",
         "strictNullChecks": true,
         "moduleResolution": "Node",
-        "noImplicitAny": true
+        "noImplicitAny": true,
+        "esModuleInterop": true
     }
 }
