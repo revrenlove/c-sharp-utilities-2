@@ -28,6 +28,7 @@ jobs:
           dotnet-version: 9
 
       - run: npm ci
+      - run: npm run build
 
       - name: Test TypeScript shit
         uses: ./.github/workflows/actions/pre-build-test-projects
