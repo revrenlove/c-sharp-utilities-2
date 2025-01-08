@@ -1,5 +1,5 @@
-name: "Jim Test TypeScript Action"
-description: "Just testing to see if typescript actually works."
+name: "Pre-build dotnet projects"
+description: "Builds dotnet projects used for testing, so we don't timeout when running the actual tests (hopefully)"
 runs:
     using: "node20"
     main: "index.mjs"

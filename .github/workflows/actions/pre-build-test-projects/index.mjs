@@ -11,11 +11,11 @@ const filePaths = (await fs.readdir(testProjectsDirectoryPath)).map(p => `${test
 
 filePaths.forEach(async p => {
     try {
-        // const execResult = await execAsync("dotnet build", { "cwd": p });
         console.log(`Attempting to build: ${p}`);
-        await execAsync("dotnet build", { "cwd": p });
 
-        // return execResult.stdout;
+        const execResult = await execAsync("dotnet build", { "cwd": p });
+
+        return execResult.stdout;
     }
     catch (e) {
         console.log("Errors are normal - some of the projects won't build, and that's by design.");
