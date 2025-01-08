@@ -3,9 +3,6 @@ import { exec } from "child_process";
 import { promisify } from "util";
 import * as fileOperations from "../utilities/fileOperations";
 import { ExecError } from "../errors/exec.error";
-
-// Disabled so that jsdoc can reference it.
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TerminalError } from "../errors/terminal.error";
 
 const execAsync = promisify(exec);

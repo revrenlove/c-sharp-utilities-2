@@ -7,6 +7,9 @@ export class TerminalError extends CSharpUtilitiesExtensionError implements Exec
 
         super(e.message);
 
+        this.name = e.name;
+        this.stack = e.stack;
+
         this.stdout = e.stdout;
         this.stderr = e.stderr;
 
