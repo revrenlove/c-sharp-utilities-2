@@ -2,4 +2,4 @@ name: "Jim Test TypeScript Action"
 description: "Just testing to see if typescript actually works."
 runs:
     using: "node20"
-    main: "index.mts"
+    main: "index.mjs"
