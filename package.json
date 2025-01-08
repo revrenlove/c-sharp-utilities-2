@@ -15,10 +15,39 @@
     ],
     "main": "./out/extension.js",
     "contributes": {
-        "commands":[
+        "commands": [
             {
                 "command": "c-sharp-utilities2.example",
                 "title": "Example Command"
+            },
+            {
+                "command": "c-sharp-utilities2.buildCSharpProject",
+                "title": "Build..."
+            }
+        ],
+        "menus": {
+            "commandPalette": [
+                {
+                    "command": "c-sharp-utilities2.buildCSharpProject",
+                    "when": "false"
+                }
+            ],
+            "c-sharp-utilities2.cSharpProjectActions": [
+                {
+                    "command": "c-sharp-utilities2.buildCSharpProject"
+                }
+            ],
+            "explorer/context": [
+                {
+                    "submenu": "c-sharp-utilities2.cSharpProjectActions",
+                    "when": "resourceExtname == .csproj"
+                }
+            ]
+        },
+        "submenus": [
+            {
+                "id": "c-sharp-utilities2.cSharpProjectActions",
+                "label": "C# Project Actions"
             }
         ],
         "configuration": {
