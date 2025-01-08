@@ -3,8 +3,6 @@ import * as assert from "assert";
 import { buildCSharpProject } from "../../features/cSharpProjectActions";
 import { TerminalError } from "../../errors/terminal.error";
 
-const maxTimeout = 20000;
-
 suite("Build Project Tests", () => {
 
     test("Compile error throws TerminalError", async () => {
