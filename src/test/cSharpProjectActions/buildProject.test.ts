@@ -15,7 +15,7 @@ suite("Build Project Tests", () => {
             await buildCSharpProject(uri);
         }, TerminalError);
 
-    }).timeout(maxTimeout);
+    });
 
     test("Ensure successful project build", async () => {
 
@@ -25,5 +25,5 @@ suite("Build Project Tests", () => {
             await buildCSharpProject(uri);
         });
 
-    }).timeout(maxTimeout);
+    });
 });
