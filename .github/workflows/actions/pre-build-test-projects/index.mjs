@@ -7,7 +7,7 @@ const execAsync = promisify(exec);
 
 const testProjectsDirectoryPath = `${path.resolve()}/out/test/assets/projects`;
 
-const filePaths = await fs.readdir(testProjectsDirectoryPath);
+const filePaths = (await fs.readdir(testProjectsDirectoryPath)).map(p => `${testProjectsDirectoryPath}/${p}`);
 
 filePaths.forEach(async p => {
     try {
